@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    =s
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = PPM
 SOURCEDIR     = source

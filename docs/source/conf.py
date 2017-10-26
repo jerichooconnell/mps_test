@@ -40,7 +40,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.doctest',
     'sphinx.ext.inheritance_diagram',
-    'numpydoc',
+    #'numpydoc',
     'sphinx.ext.githubpages'
 ]
 

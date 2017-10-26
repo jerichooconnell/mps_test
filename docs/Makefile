@@ -16,6 +16,7 @@ help:
 
 gh-pages:
 	cd ..
+	pwd
 	git checkout gh-pages
 	rm -rf _sources _static
 	git checkout master docs/build/html

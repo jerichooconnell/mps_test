@@ -15,6 +15,7 @@ help:
 .PHONY: help Makefile
 
 gh-pages:
+	cd ..
 	git checkout gh-pages
 	rm -rf _sources _static
 	git checkout master docs/build/html

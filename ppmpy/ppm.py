@@ -116,9 +116,11 @@ The closest time is at Ndump = 2
 
 and
 
-import ppmpy.ppm as ppm
-D1 = ppm.yprofile('/data/ppm_rpod2/YProfiles/O-shell-M25/D1')
-D1.vprofs([90,100],log_logic=True)
+.. ipython::
+
+    import ppmpy.ppm as ppm
+    D1 = ppm.yprofile('/data/ppm_rpod2/YProfiles/O-shell-M25/D1')
+    D1.vprofs([90,100],log_logic=True)
     
 .. plot::
 

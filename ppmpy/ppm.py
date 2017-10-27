@@ -58,7 +58,7 @@ and
    x = np.random.randn(1000)
    plt.hist( x, 20)
    plt.grid()
-   plt.title("Stats Stink!")
+   plt.title("Stats Stats Stats!")
 
 
 plots the data.
@@ -6329,25 +6329,25 @@ def get_N2(yp, dump):
 def plot_N2(case, dump1, dump2, lims1, lims2, mesa_A_model_num):
 
     '''
-        plots squared Brunt-Vaisala frequency N^2 with zoom window
+    plots squared Brunt-Vaisala frequency N^2 with zoom window
 
-        Parameters
-        ----------
-        case = string 
-            Name of run eg. 'D1'
-        dump1/ dump2 = int
-            dump to analyze
-        mesa_A_model_num = int
-            number for mesa model
-        lims1/lims2 = 4 index array
-            axes limits [xmin xmax ymin ymax] lims1 = smaller window
+    Parameters
+    ----------
+    case = string 
+        Name of run eg. 'D1'
+    dump1/ dump2 = int
+        dump to analyze
+    mesa_A_model_num = int
+        number for mesa model
+    lims1/lims2 = 4 index array
+        axes limits [xmin xmax ymin ymax] lims1 = smaller window
 
-        Example
-        ------
-        import ppm
-        set_YProf_path('/data/ppm_rpod2/YProfiles/O-shell-M25/')
-        plot_N2('D1', 0, 132, mesa_A_model_num = 29350, mesa_B_model_num = 28950)
-        '''
+    Example
+    ------
+    import ppm
+    set_YProf_path('/data/ppm_rpod2/YProfiles/O-shell-M25/')
+    plot_N2('D1', 0, 132, mesa_A_model_num = 29350, mesa_B_model_num = 28950)
+    '''
     ppm_run= case
     yp = yprofile(ppm_path + case)
     mesa_logs_path = '/data/ppm_rpod2/Stellar_models/O-shell-M25/M25Z0.02/LOGS_N2b'

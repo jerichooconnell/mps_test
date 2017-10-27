@@ -3,4 +3,4 @@ PPM
 ===
 
 .. automodule:: ppmpy.ppm
-   :members:
+    :members:

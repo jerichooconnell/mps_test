@@ -2410,12 +2410,12 @@ class yprofile(DataPlot):
             an incompressible fluid.
 		plot_type : int
 			plot_type = 0: Use a variable lower endpoint and a fixed upper endpoint of
-                           the radial interval, in which Ri is calculated. Ri is plotted
-						   for a range of assumed velocity differences with respect to
-                           the upper endpoint.
+            the radial interval, in which Ri is calculated. Ri is plotted
+			for a range of assumed velocity differences with respect to
+            the upper endpoint.
 			plot_type = 1: Compute Ri locally assuming that the local velocities vanish
-                           on a certain length scale, which is computed from the radial
-                           profile of the RMS horizontal velocity.
+            on a certain length scale, which is computed from the radial
+            profile of the RMS horizontal velocity.
         ifig : int
             Figure number for the Richardson plot (a new window must be opened).
         '''

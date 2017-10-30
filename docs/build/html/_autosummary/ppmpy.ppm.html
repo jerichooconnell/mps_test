@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>PPM &#8212; PPM 0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>ppmpy.ppm &#8212; PPMstar 0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../',
         VERSION:     '0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -18,14 +18,15 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="PyPPM" href="../index.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -40,7 +41,7 @@
           <div class="body" role="main">
             
   <div class="section" id="module-ppmpy.ppm">
-<span id="ppm"></span><h1>PPM<a class="headerlink" href="#module-ppmpy.ppm" title="Permalink to this headline">¶</a></h1>
+<span id="ppmpy-ppm"></span><h1>ppmpy.ppm<a class="headerlink" href="#module-ppmpy.ppm" title="Permalink to this headline">¶</a></h1>
 <p>ppm.py</p>
 <p>PPM is a Python module for reading Yprofile-01-xxxx.bobaaa files.
 Simple session for working with ppm.py, here I assume user’s working
@@ -141,8 +142,159 @@ Gravity turns on between radii   6.00000E+00  and   7.00000E+00  Mm.</li>
 <span class="go">8</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//includeme-1.py">Source code</a>)</p>
+<p>(<a class="reference external" href="../_autosummary/ppmpy-ppm-1.py">Source code</a>, <a class="reference external" href="../_autosummary/ppmpy-ppm-1.png">png</a>, <a class="reference external" href="../_autosummary/ppmpy-ppm-1.hires.png">hires.png</a>, <a class="reference external" href="../_autosummary/ppmpy-ppm-1.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/ppmpy-ppm-1.png" src="../_images/ppmpy-ppm-1.png" />
+</div>
 <p>plots the data.</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.L_H_L_He_comparison" title="ppmpy.ppm.L_H_L_He_comparison"><code class="xref py py-obj docutils literal"><span class="pre">L_H_L_He_comparison</span></code></a>(cases[,&nbsp;sparse,&nbsp;ifig,&nbsp;…])</td>
+<td>Compares L_H to L_He, optional values are set to values from O-shell burning paper.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.analyse_dump" title="ppmpy.ppm.analyse_dump"><code class="xref py py-obj docutils literal"><span class="pre">analyse_dump</span></code></a>(rp,&nbsp;r1,&nbsp;r2)</td>
+<td>This function analyses ray profiles of one dump and returns</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.bucket_map" title="ppmpy.ppm.bucket_map"><code class="xref py py-obj docutils literal"><span class="pre">bucket_map</span></code></a>(rprofile,&nbsp;quantity[,&nbsp;limits,&nbsp;…])</td>
+<td>Plots a Mollweide projection of the rprofile object using the mpl_toolkits.basemap package</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">cdiff</span></code>(x)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">cmap_from_str</span></code>(str[,&nbsp;segment])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">colourmap_from_str</span></code>(str[,&nbsp;segment])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.compare_entrained_material" title="ppmpy.ppm.compare_entrained_material"><code class="xref py py-obj docutils literal"><span class="pre">compare_entrained_material</span></code></a>(yps,&nbsp;labels,&nbsp;fname)</td>
+<td>Compares the entrainment rate of two seperate yprofile objects</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.energy_comparison" title="ppmpy.ppm.energy_comparison"><code class="xref py py-obj docutils literal"><span class="pre">energy_comparison</span></code></a>(yprof,&nbsp;mesa_model[,&nbsp;…])</td>
+<td>Nuclear  energy  generation  rate (enuc) thermal  neutrino</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.get_N2" title="ppmpy.ppm.get_N2"><code class="xref py py-obj docutils literal"><span class="pre">get_N2</span></code></a>(yp,&nbsp;dump)</td>
+<td>squared Brunt-Vaisala frequency N^2</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.get_avg_rms_velocities" title="ppmpy.ppm.get_avg_rms_velocities"><code class="xref py py-obj docutils literal"><span class="pre">get_avg_rms_velocities</span></code></a>(prof,&nbsp;dumps,&nbsp;comp)</td>
+<td>Finds an average velocity vector as a function of radius for a given range of dumps.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.get_heat_source" title="ppmpy.ppm.get_heat_source"><code class="xref py py-obj docutils literal"><span class="pre">get_heat_source</span></code></a>(yprof[,&nbsp;radbase,&nbsp;dlayerbot,&nbsp;…])</td>
+<td>returns estimation of yprofiles energy</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.get_mach_number" title="ppmpy.ppm.get_mach_number"><code class="xref py py-obj docutils literal"><span class="pre">get_mach_number</span></code></a>(rp_set,&nbsp;yp,&nbsp;dumps,&nbsp;comp)</td>
+<td>Returns max Mach number and matching time vector</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.get_mesa_time_evo" title="ppmpy.ppm.get_mesa_time_evo"><code class="xref py py-obj docutils literal"><span class="pre">get_mesa_time_evo</span></code></a>(mesa_path,&nbsp;mesa_logs,&nbsp;t_end)</td>
+<td>Function to generate data for figure 5 in O-shell paper.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.get_p_top" title="ppmpy.ppm.get_p_top"><code class="xref py py-obj docutils literal"><span class="pre">get_p_top</span></code></a>(prof,&nbsp;dumps,&nbsp;r_top)</td>
+<td>Returns p_top and matching time vector</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.get_power_spectrum_RProfile" title="ppmpy.ppm.get_power_spectrum_RProfile"><code class="xref py py-obj docutils literal"><span class="pre">get_power_spectrum_RProfile</span></code></a>(yprof_path,&nbsp;…)</td>
+<td>Calculates power spectra of radial velocity</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.get_r_int" title="ppmpy.ppm.get_r_int"><code class="xref py py-obj docutils literal"><span class="pre">get_r_int</span></code></a>(data_path,&nbsp;r_ref,&nbsp;gamma[,&nbsp;sparse])</td>
+<td>Returns values for radius of interface for a given reference radius.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.get_upper_bound" title="ppmpy.ppm.get_upper_bound"><code class="xref py py-obj docutils literal"><span class="pre">get_upper_bound</span></code></a>(data_path,&nbsp;r1,&nbsp;r2[,&nbsp;sparse])</td>
+<td>Returns information about the upper convective boundary</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.get_v_evolution" title="ppmpy.ppm.get_v_evolution"><code class="xref py py-obj docutils literal"><span class="pre">get_v_evolution</span></code></a>(prof,&nbsp;cycles,&nbsp;r1,&nbsp;r2,&nbsp;comp,&nbsp;RMS)</td>
+<td>Finds a velocity vector and a time vector for a range of cycles</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.luminosity_for_dump" title="ppmpy.ppm.luminosity_for_dump"><code class="xref py py-obj docutils literal"><span class="pre">luminosity_for_dump</span></code></a>(path[,&nbsp;get_t])</td>
+<td>Takes a directory and returns luminosity and time vector with entry</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.make_colourmap" title="ppmpy.ppm.make_colourmap"><code class="xref py py-obj docutils literal"><span class="pre">make_colourmap</span></code></a>(colours[,&nbsp;alphas])</td>
+<td>make a matplotlib colormap given a list of index [0-255], RGB tuple values</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.plot_Mollweide" title="ppmpy.ppm.plot_Mollweide"><code class="xref py py-obj docutils literal"><span class="pre">plot_Mollweide</span></code></a>(rp_set,&nbsp;dump_min,&nbsp;dump_max,&nbsp;…)</td>
+<td>Plot Mollweide spherical projection plot</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.plot_N2" title="ppmpy.ppm.plot_N2"><code class="xref py py-obj docutils literal"><span class="pre">plot_N2</span></code></a>(case,&nbsp;dump1,&nbsp;dump2,&nbsp;lims1,&nbsp;lims2,&nbsp;…)</td>
+<td>plots squared Brunt-Vaisala frequency N^2 with zoom window</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.plot_boundary_evolution" title="ppmpy.ppm.plot_boundary_evolution"><code class="xref py py-obj docutils literal"><span class="pre">plot_boundary_evolution</span></code></a>(data_path,&nbsp;r1,&nbsp;r2[,&nbsp;…])</td>
+<td>Displays the time evolution of the convective boundary or Interface radius</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.plot_diffusion_profiles" title="ppmpy.ppm.plot_diffusion_profiles"><code class="xref py py-obj docutils literal"><span class="pre">plot_diffusion_profiles</span></code></a>(run,&nbsp;mesa_path,&nbsp;…)</td>
+<td>This is a function that generates various diffusion profiles</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.plot_entr_v_ut" title="ppmpy.ppm.plot_entr_v_ut"><code class="xref py py-obj docutils literal"><span class="pre">plot_entr_v_ut</span></code></a>(cases,&nbsp;c0,&nbsp;Ncycles,&nbsp;r1,&nbsp;r2,&nbsp;…)</td>
+<td>Plots entrainment rate vs max radial or tangential velocity</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.plot_luminosity" title="ppmpy.ppm.plot_luminosity"><code class="xref py py-obj docutils literal"><span class="pre">plot_luminosity</span></code></a>(L_H_yp,&nbsp;L_H_rp,&nbsp;t)</td>
+<td>Plots two luminosity vectors against the same time vector</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.plot_mach_number" title="ppmpy.ppm.plot_mach_number"><code class="xref py py-obj docutils literal"><span class="pre">plot_mach_number</span></code></a>(rp_set,&nbsp;yp,&nbsp;dumps[,&nbsp;comp,&nbsp;…])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param yp:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.plot_mesa_time_evo" title="ppmpy.ppm.plot_mesa_time_evo"><code class="xref py py-obj docutils literal"><span class="pre">plot_mesa_time_evo</span></code></a>(mesa_path,&nbsp;mesa_logs,&nbsp;t_end)</td>
+<td>Function to plot data for figure 5 in O-shell paper.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.plot_p_top" title="ppmpy.ppm.plot_p_top"><code class="xref py py-obj docutils literal"><span class="pre">plot_p_top</span></code></a>(yp,&nbsp;dumps,&nbsp;r_top[,&nbsp;ifig,&nbsp;lims,&nbsp;…])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param yp:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.plot_power_spectrum_RProfile" title="ppmpy.ppm.plot_power_spectrum_RProfile"><code class="xref py py-obj docutils literal"><span class="pre">plot_power_spectrum_RProfile</span></code></a>(t,&nbsp;l,&nbsp;power[,&nbsp;…])</td>
+<td>Plots power spectra of radial velocity</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.prep_Yprofile_data" title="ppmpy.ppm.prep_Yprofile_data"><code class="xref py py-obj docutils literal"><span class="pre">prep_Yprofile_data</span></code></a>([user,&nbsp;run])</td>
+<td>for given user and run create YProfile dir in run dir and link all</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.prof_compare" title="ppmpy.ppm.prof_compare"><code class="xref py py-obj docutils literal"><span class="pre">prof_compare</span></code></a>(cases[,&nbsp;ndump,&nbsp;yaxis_thing,&nbsp;…])</td>
+<td>Compare profiles of quantities from multiple PPM Yprofile instances at a     given time of nump number.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.set_YProf_path" title="ppmpy.ppm.set_YProf_path"><code class="xref py py-obj docutils literal"><span class="pre">set_YProf_path</span></code></a>(path[,&nbsp;YProf_fname])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">set_nice_params</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#ppmpy.ppm.upper_bound_ut" title="ppmpy.ppm.upper_bound_ut"><code class="xref py py-obj docutils literal"><span class="pre">upper_bound_ut</span></code></a>(data_path,&nbsp;dump_to_plot,&nbsp;…)</td>
+<td>Finds the upper convective boundary as defined by the steepest decline in tangential velocity.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.v_evolution" title="ppmpy.ppm.v_evolution"><code class="xref py py-obj docutils literal"><span class="pre">v_evolution</span></code></a>(cases,&nbsp;ymin,&nbsp;ymax,&nbsp;comp,&nbsp;RMS[,&nbsp;…])</td>
+<td>Compares the time evolution of the max RMS velocity of different runs</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">LUT</span></code>(lutfile,&nbsp;p0,&nbsp;p1,&nbsp;s0,&nbsp;s1[,&nbsp;posdef])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#ppmpy.ppm.yprofile" title="ppmpy.ppm.yprofile"><code class="xref py py-obj docutils literal"><span class="pre">yprofile</span></code></a>([sldir,&nbsp;filename_offset,&nbsp;silent])</td>
+<td>Data structure for holding data in the  YProfile.bobaaa files.</td>
+</tr>
+</tbody>
+</table>
 <dl class="function">
 <dt id="ppmpy.ppm.L_H_L_He_comparison">
 <code class="descclassname">ppmpy.ppm.</code><code class="descname">L_H_L_He_comparison</code><span class="sig-paren">(</span><em>cases</em>, <em>sparse=1</em>, <em>ifig=101</em>, <em>L_He=0.006713640000000001</em>, <em>airmu=1.39165</em>, <em>cldmu=0.725</em>, <em>fkair=0.203606102635</em>, <em>fkcld=0.885906040268</em>, <em>AtomicNoair=6.65742024965</em>, <em>AtomicNocld=1.34228187919</em>, <em>markevery=1</em>, <em>lims=None</em>, <em>save=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ppmpy.ppm.L_H_L_He_comparison" title="Permalink to this definition">¶</a></dt>
@@ -895,11 +1047,10 @@ logy=False)</div></blockquote>
 as a global variable, so that it need only be set once during
 an interactive session; instances can then be loaded by
 refering to the directory name that contains YProfile files.</p>
-<p>ppm.ppm_path  contains path
-ppm.cases     contains dirs in path that contain file with name</p>
-<blockquote>
-<div>YProf_fname usually used to determine dirs with
-YProfile files</div></blockquote>
+<p>ppm.ppm_path: contains path
+ppm.cases: contains dirs in path that contain file with name
+YProf_fname usually used to determine dirs with
+YProfile files</p>
 </dd></dl>
 
 <dl class="function">
@@ -985,7 +1136,6 @@ v_evolution([‘D15’,’D2’,’D1’], 4., 8.,’max’,’radial’)</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="ppmpy.ppm.yprofile.Aprof_time">
 <code class="descname">Aprof_time</code><span class="sig-paren">(</span><em>tau</em>, <em>Nl</em>, <em>lims=None</em>, <em>save=False</em>, <em>silent=True</em>, <em>prefix='PPM'</em>, <em>format='pdf'</em>, <em>initial_conv_boundaries=True</em>, <em>lw=1.0</em>, <em>ifig=12</em><span class="sig-paren">)</span><a class="headerlink" href="#ppmpy.ppm.yprofile.Aprof_time" title="Permalink to this definition">¶</a></dt>
@@ -1815,16 +1965,43 @@ YY.vprofs([90,100],log_logic=True)</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">PPMstar</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=PPMstar&repo=PyPPM&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ppmpy.ppm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yprofile-files-assumptions">Yprofile files Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#header-attribute-assumptions">Header Attribute Assumptions</a></li>
 </ul>
-</div>
+</li>
+</ul>
+
+
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
+    <form class="search" action="../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
@@ -1837,14 +2014,14 @@ YY.vprofs([90,100],log_logic=True)</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017, P.
+      &copy;2017, PPMstar.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/includeme.rst.txt"
+      <a href="../_sources/_autosummary/ppmpy.ppm.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

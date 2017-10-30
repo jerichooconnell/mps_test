@@ -37,16 +37,20 @@ sys.path.append(os.path.abspath('sphinxext'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
+    'sphinx.ext.autosummary',
     'matplotlib.sphinxext.only_directives',
     'matplotlib.sphinxext.plot_directive',
     'IPython.sphinxext.ipython_directive',
     'IPython.sphinxext.ipython_console_highlighting',
     'sphinx.ext.mathjax',
-    'sphinx.ext.doctest',
-    'sphinx.ext.inheritance_diagram',
     'numpydoc',
     'sphinx.ext.githubpages'
 ]
+
+numpydoc_show_class_members = False
+
+autodoc_default_flags = ['members']
+autosummary_generate = True
 
 # Napoleon settings
 napoleon_google_docstring = False
@@ -74,9 +78,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'PPM'
-copyright = '2017, P'
-author = 'P'
+project = 'PPMstar'
+copyright = '2017, PPMstar'
+author = 'PPMstar'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -117,7 +121,15 @@ html_theme = 'alabaster'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'logo': 'logo.png',
+    'logo_name': True,
+    'github_repo': 'PyPPM',
+    'github_user': 'PPMstar',
+    'github_button': True,
+    'show_related': True,
+    'fixed_sidebar': False
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -131,16 +143,17 @@ html_static_path = ['_static']
 # refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
 html_sidebars = {
     '**': [
-        'relations.html',  # needs 'show_related': True theme option to display
+        'about.html',
+        'navigation.html',
         'searchbox.html',
     ]
 }
-
 
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'PPMdoc'
+
 
 
 # -- Options for LaTeX output ---------------------------------------------

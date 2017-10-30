@@ -91,6 +91,8 @@ Examples
 
 Here is an example runthrough.
 
+
+.. ipython::
 >>> from ppm import *
 >>> p=y_profile()
 >>> head= p.hattri
@@ -127,7 +129,7 @@ and
     
 .. plot::
 
-    import pptmpy.ppm as ppm
+    import ppmpy.ppm as ppm
     D1 = ppm.yprofile('/data/ppm_rpod2/YProfiles/O-shell-M25/D1')
     D1.vprofs([90,100],log_logic=True)
 
@@ -199,17 +201,22 @@ def set_nice_params():
     pl.rcParams.update(params)
 
 def set_YProf_path(path,YProf_fname='YProfile-01-0000.bobaaa'):
-    '''Set path to location where YProfile directories can be found.
+    '''
 
-       For example, set path to the swj/PPM/RUNS_DIR VOSpace directory
-       as a global variable, so that it need only be set once during
-       an interactive session; instances can then be loaded by
-       refering to the directory name that contains YProfile files.
+    set_YProf_path
+    ==============
 
-       ppm.ppm_path  contains path
-       ppm.cases     contains dirs in path that contain file with name
-                     YProf_fname usually used to determine dirs with 
-                     YProfile files
+    Set path to location where YProfile directories can be found.
+
+    For example, set path to the swj/PPM/RUNS_DIR VOSpace directory
+    as a global variable, so that it need only be set once during
+    an interactive session; instances can then be loaded by
+    refering to the directory name that contains YProfile files.
+
+    ppm.ppm_path: contains path
+    ppm.cases: contains dirs in path that contain file with name
+    YProf_fname usually used to determine dirs with 
+    YProfile files
     '''
     global ppm_path, cases
     ppm_path = path

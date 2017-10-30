@@ -17,7 +17,7 @@ directory contains some YProfile files.
 If the user find any bugs or errors, please email us.
 
 Yprofile files Assumptions
-==========================
+--------------------------
 
 - labeled as YProfile-01-xxxx.bobaaa and the xxxx is the NDump that is
   located within each file.
@@ -44,7 +44,7 @@ Yprofile files Assumptions
   attributes in the file are cycle attributes.
 
 Header Attribute Assumptions
-============================
+----------------------------
 
 - Header attributes are separated by lines and instances of four spaces
   (    )
@@ -87,7 +87,8 @@ Header Attribute Assumptions
   Gravity turns on between radii   6.00000E+00  and   7.00000E+00  Mm.
 
 Exampppp
-========
+--------
+
 Here is an example runthrough.
 
 >>> from ppm import *
@@ -118,9 +119,8 @@ and
 
 .. ipython::
 
-    import ppmpy.ppm as ppm
-    D1 = ppm.yprofile('/data/ppm_rpod2/YProfiles/O-shell-M25/D1')
-    D1.vprofs([90,100],log_logic=True)
+   In [136]: x = 2
+   In [137]: print(x**3)
     
 .. plot::
 

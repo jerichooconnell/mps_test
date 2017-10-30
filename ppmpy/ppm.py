@@ -120,6 +120,9 @@ and
 .. ipython::
 
    In [136]: x = 2
+   
+   In [137]: print(x**3)
+   
    In [137]: print(x**3)
     
 .. plot::

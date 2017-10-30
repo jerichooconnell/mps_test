@@ -16,10 +16,10 @@ NuGridPy has been made possible, in part, through support from JINA, Humboldt Fo
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
    
-   includeme
+   PPM
 
 
 Indices and tables

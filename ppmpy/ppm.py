@@ -86,7 +86,7 @@ Header Attribute Assumptions
   'and' which is then followed by a second Value ex.
   Gravity turns on between radii   6.00000E+00  and   7.00000E+00  Mm.
 
-Exampppp
+Examples
 --------
 
 Here is an example runthrough.

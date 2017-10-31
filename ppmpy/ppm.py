@@ -22,7 +22,7 @@ which is the intended environment for ppmpy.
 If the user find any bugs or errors, please email us.
 
 
-Example
+Examples
 =========
 
 Here is an example runthrough.
@@ -176,7 +176,7 @@ def prof_compare(cases,ndump=None,yaxis_thing='FV H+He',ifig=None,num_type='ndum
         Should the y-axis have a logarithmic scale?
         The default is True.
         
-    Example
+    Examples
     --------
         
     .. ipython::
@@ -185,22 +185,11 @@ def prof_compare(cases,ndump=None,yaxis_thing='FV H+He',ifig=None,num_type='ndum
            .....: data_dir = '/data/ppm_rpod2/YProfiles/'
            .....: project = 'O-shell-M25'
            .....: ppm.set_YProf_path(data_dir+project)
-
+        
+        @savefig prof_compare.png width=6in
         In [136]: D2=ppm.yprofile('D2')
            .....: D1=ppm.yprofile('D1')
-           .....: ppm.prof_compare([D2,D1])
-
-
-    .. plot::
-
-        from ppmpy import ppm
-        data_dir = '/data/ppm_rpod2/YProfiles/'
-        project = 'O-shell-M25'
-        ppm.set_YProf_path(data_dir+project)
-
-        D2=ppm.yprofile('D2')
-        D1=ppm.yprofile('D1')
-        ppm.prof_compare([D2,D1])
+           .....: ppm.prof_compare([D2,D1],10,labels = ['D1','D2'])
 
 
     """
@@ -225,6 +214,7 @@ def prof_compare(cases,ndump=None,yaxis_thing='FV H+He',ifig=None,num_type='ndum
         pl.figure()
     else:
         pl.figure(ifig)
+    labels = zeros(len(cases))
     i=0
     for Y in cases:
         j=i+jline_offset
@@ -334,7 +324,7 @@ class yprofile(DataPlot):
         Returns
         -------
         dictionary : dict
-            the filenamem, ndump dictionary
+            the filename, ndump dictionary
             
         """
         ndumpDict={}
@@ -608,8 +598,8 @@ class yprofile(DataPlot):
             r : array
                 array to be reduced
                 
-            Output
-            ------
+            Returns
+            --------
             r : array
                 reduced array
             '''
@@ -1640,7 +1630,7 @@ class yprofile(DataPlot):
                .....: project = 'O-shell-M25'
                .....: ppm.set_YProf_path(data_dir+project)
 
-            In [136]: D2=ppm.yprofile('D2')
+            In [136]: D2 = ppm.yprofile('D2')
                .....: D2.prof_time([0,5,10],logy=False,num_type='time')
 
 
@@ -1828,25 +1818,13 @@ class yprofile(DataPlot):
             
         .. ipython::
 
-            In [136]: from ppmpy import ppm
-               .....: data_dir = '/data/ppm_rpod2/YProfiles/'
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
                .....: project = 'O-shell-M25'
                .....: ppm.set_YProf_path(data_dir+project)
             
-            @savefig hist_with_text.png width=4in
-            In [136]: D2=ppm.yprofile('D2')
-               .....: D2.prof_time([0,5,10],logy=False,num_type='time')
-
-
-        .. plot::
-
-            from ppmpy import ppm
-            data_dir = '/data/ppm_rpod2/YProfiles/'
-            project = 'O-shell-M25'
-            ppm.set_YProf_path(data_dir+project)
-
-            D2=ppm.yprofile('D2')
-            D2.prof_time([0,5,10],logy=False,num_type='time')     
+            @savefig prof_time.png width=4in
+            In [136]: D2 = ppm.yprofile('D2')
+               .....: D2.prof_time([0,5,10],logy=False,num_type='time') 
 
         """
             
@@ -2089,29 +2067,30 @@ class yprofile(DataPlot):
             This function averages over a range of Np points centered at 
             the dump number, preferable an even number or else the range 
             will not be centered around the dump number
-        comp : string
+        comp : str
             'r' 't' or 'tot' for the velocity component that will be plotted
             see vprof for comparing all three
         lims : list
             Limits for the plot, i.e. [xl,xu,yl,yu].
             If None, the default values are used.
             The default is None.
-        save : boolean
+        save : bool
             Do you want the figures to be saved for each cycle?
             Figure names will be <prefix>-Vel-00000000001.<format>,
             where <prefix> and <format> are input options that default
             to 'PPM' and 'pdf'.
             The default value is False.
-        prefix : string
+        prefix : str
             see 'save' above
         format : string
             see 'save' above
-        initial_conv_boundaries : logical 
+        initial_conv_boundaries : bool, optional 
             plot vertical lines where the convective boundaries are
             initially, i.e. ad radbase and radtop from header
             attributes in YProfiles
         ifig : int
             figure number to plot into
+            
         '''
         
         avg_rms_v = {}
@@ -2177,6 +2156,19 @@ class yprofile(DataPlot):
             attributes in YProfiles
         ifig : int
             figure number to plot into
+            
+        Examples
+        --------
+        
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
+            
+            @savefig Aprof_time.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: F4.Aprof_time(np.array([807., 1399.]),range(0,30,5),lims =[10., 30.,0., 2.5e-2],silent = True)
         '''
 
         r = self.get('Y', fname = 0, resolution = 'l')
@@ -2244,13 +2236,15 @@ class yprofile(DataPlot):
         Examples
         --------
         
-            import ppm
-            run1='/rpod3/fherwig/PPM/RUNS_DATA/VLTP_MESA_M0.542/C1'
-            run2='/rpod3/fherwig/PPM/RUNS_DATA/sakurai-num-exp-robustness-onset-GOSH/A1/'
-            YY=ppm.yprofile(run1)
-            YY2=ppm.yprofile(run2)
-            YY.tEkmax(ifig=1,label='VLTP_0.543',id=0)
-            YY2.tEkmax(ifig=1,label='Sak_A1',id=1)
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
+            
+            @savefig tEKmax.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: F4.tEkmax(ifig=11,label='F4',id=1)
         
         """
         
@@ -2327,13 +2321,15 @@ class yprofile(DataPlot):
         Examples
         --------
         
-            import ppm
-            run1='/rpod3/fherwig/PPM/RUNS_DATA/VLTP_MESA_M0.542/C1'
-            run2='/rpod3/fherwig/PPM/RUNS_DATA/sakurai-num-exp-robustness-onset-GOSH/A1/'
-            YY=ppm.yprofile(run1)
-            YY2=ppm.yprofile(run2)
-            YY.tvmax(ifig=1,label='VLTP_0.543',id=0)
-            YY2.tvmax(ifig=1,label='Sak_A1',id=1)
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
+            
+            @savefig tvmax.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: F4.tvmax(ifig=11,label='F4',id=1)
             
         """
         
@@ -2411,16 +2407,30 @@ class yprofile(DataPlot):
         compressible_fluid : logical
             You can set it to False to use the Richardson criterion for
             an incompressible fluid.
-		plot_type : int
-			plot_type = 0: Use a variable lower endpoint and a fixed upper endpoint of
+        plot_type : int
+            plot_type = 0: Use a variable lower endpoint and a fixed upper endpoint of
             the radial interval, in which Ri is calculated. Ri is plotted
-			for a range of assumed velocity differences with respect to
+            for a range of assumed velocity differences with respect to
             the upper endpoint.
-			plot_type = 1: Compute Ri locally assuming that the local velocities vanish
+            plot_type = 1: Compute Ri locally assuming that the local velocities vanish
             on a certain length scale, which is computed from the radial
             profile of the RMS horizontal velocity.
         ifig : int
             Figure number for the Richardson plot (a new window must be opened).
+        
+        Examples
+        ---------
+        
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
+            
+            @savefig richardson.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: F4.Richardson_plot()
+               
         '''
         
         # the whole calculation is done in code units
@@ -2775,8 +2785,8 @@ class yprofile(DataPlot):
         fname : int
             which dump do you want to take r and P from?
             
-        Output
-        ------
+        Returns
+        --------
         r : array
             radial co-ordinates (Mm) for which we have a diffusion coefficient
             the decays exponentially
@@ -2803,8 +2813,7 @@ class yprofile(DataPlot):
         given an r0, D0 and f1 and f2.
         
         Dov is given by the formula:
-            D = 2. * D0 * 1. / (1. / exp(-2*(r-r0)/f1*Hp) + 
-                               1. / exp(-2*(r-r0)/f2*Hp))
+        D = 2. * D0 * 1. / (1. / exp(-2*(r-r0)/f1*Hp) + 1. / exp(-2*(r-r0)/f2*Hp))
         
         Parameters
         ----------
@@ -2817,8 +2826,8 @@ class yprofile(DataPlot):
         fname : int
             which dump do you want to take r and P from?
         
-        Output
-        ------
+        Returns
+        --------
         r : array
             radial co-ordinates (Mm) for which we have a diffusion coefficient
             the decays exponentially
@@ -2900,21 +2909,30 @@ class yprofile(DataPlot):
         linelims : range, optional
             limits of the radius to approximate diffusion coefficient
             default is none (whole vector)
-        r0 = None, optional
+        r0 : None, optional
             Start of exponential diffusion decay, necessary 
             for approx_D
             
-        Output
-        ------
+        Returns
+        --------
         x : array
             radial co-ordinates (Mm) for which we have a diffusion coefficient
         D : array
             Diffusion coefficient (cm^2/s)
+        
+        Examples
+        ---------
+        
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
             
-        Example
-        -------
-        YY=ppm.yprofile(path_to_data)
-        YY.Dinv(1,640)
+            @savefig Dinv.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: res = F4.Dinv(1,640)
+
         '''
 
 
@@ -3184,61 +3202,57 @@ class yprofile(DataPlot):
     def Dsolve(self,fname1,fname2,fluid='FV H+He',numtype='ndump',newton=False,niter=3,
              debug=False,grid=False,FVaverage=False,tauconv=None,returnY=False):
         '''
-            Solve inverse diffusion equation sequentially by iterating over the spatial
-            domain using a lower boundary condition (see MEB's thesis, page
-            223, Eq. B.15).
-            
-            
-            Parameters
-            ----------
-            fname1,fname2 : int or float
-                cycles from which to take initial and final abundance profiles
-                for the diffusion step we want to mimic.
-            fluid : string
-                Which fluid do you want to track?
-                numtype : string, optional
-                Designates how this function acts and how it interprets
-                fname.  If numType is 'file', this function will get the
-                desired attribute from that file.  If numType is 'NDump'
-                function will look at the cycle with that nDump.  If
-                numType is 'T' or 'time' function will find the _cycle
-                with the closest time stamp.
-                The default is "ndump".
-            newton : boolean, optional
-                Whether or not to apply Newton-Raphson refinement of the
-                solution for D.
-                The default is False
-            niter : int, optional
-                If N-R refinement is to be done, niter is how many iterations
-                to compute.
-                The default is 3.
-            grid : boolean, optional
-                whether or not to show the axes grids.
-                The default is False.
-            FVaverage : boolean, optional
-                Whether or not to average the abundance profiles over a
-                convective turnover timescale. See also tauconv.
-                The default is False.
-            tauconv : float, optional
-                If averaging the abundance profiles over a convective turnover
-                timescale, give the convective turnover timescale (seconds).
-                The default value is None.
-            returnY : boolean, optional
-                If True, return abundance vectors as well as radius and diffusion
-                coefficient vectors
-                The default is False.
-            
-            Output
-            ------
-            x : array
-                radial co-ordinates (Mm) for which we have a diffusion coefficient
-            D : array
-                Diffusion coefficient (cm^2/s)
-            
-            Example
-            -------
-            YY=ppm.yprofile(path_to_data)
-            YY.Dsolve(1,640)
+        Solve inverse diffusion equation sequentially by iterating over the spatial
+        domain using a lower boundary condition (see MEB's thesis, page
+        223, Eq. B.15).
+
+
+        Parameters
+        ----------
+        fname1,fname2 : int or float
+            cycles from which to take initial and final abundance profiles
+            for the diffusion step we want to mimic.
+        fluid : string
+            Which fluid do you want to track?
+            numtype : string, optional
+            Designates how this function acts and how it interprets
+            fname.  If numType is 'file', this function will get the
+            desired attribute from that file.  If numType is 'NDump'
+            function will look at the cycle with that nDump.  If
+            numType is 'T' or 'time' function will find the _cycle
+            with the closest time stamp.
+            The default is "ndump".
+        newton : boolean, optional
+            Whether or not to apply Newton-Raphson refinement of the
+            solution for D.
+            The default is False
+        niter : int, optional
+            If N-R refinement is to be done, niter is how many iterations
+            to compute.
+            The default is 3.
+        grid : boolean, optional
+            whether or not to show the axes grids.
+            The default is False.
+        FVaverage : boolean, optional
+            Whether or not to average the abundance profiles over a
+            convective turnover timescale. See also tauconv.
+            The default is False.
+        tauconv : float, optional
+            If averaging the abundance profiles over a convective turnover
+            timescale, give the convective turnover timescale (seconds).
+            The default value is None.
+        returnY : boolean, optional
+            If True, return abundance vectors as well as radius and diffusion
+            coefficient vectors
+            The default is False.
+
+        Returns
+        --------
+        x : array
+            radial co-ordinates (Mm) for which we have a diffusion coefficient
+        D : array
+            Diffusion coefficient (cm^2/s)
+        
         '''
         
         
@@ -3468,17 +3482,25 @@ class yprofile(DataPlot):
             whether or not to plot D where it is <0
             the default value is True
         
-        Output
-        ------
+        Returns
+        --------
         x : array
             radial co-ordinates (Mm) for which we have a diffusion coefficient
         D : array
             Diffusion coefficient (cm^2/s)
         
-        Example
-        -------
-        YY=ppm.yprofile(path_to_data)
-        YY.Dsolvedown(1,640)
+        Examples
+        ---------
+        
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
+            
+            @savefig Dsolvedown.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: res = F4.Dsolvedown(1,640)
         '''
     
     
@@ -3488,7 +3510,7 @@ class yprofile(DataPlot):
         
         def mf(fluid,fname):
             '''
-                Get mass fraction profile of fluid 'fluid' at fname.
+            Get mass fraction profile of fluid 'fluid' at fname.
             '''
             y = self.get(fluid,fname=fname,resolution='l')
             if fluid == 'FV H+He':
@@ -3843,17 +3865,13 @@ class yprofile(DataPlot):
             coefficient vectors
             The default is False.
         
-        Output
-        ------
+        Returns
+        --------
         x : array
             radial co-ordinates (Mm) for which we have a diffusion coefficient
         D : array
             Diffusion coefficient (cm^2/s)
         
-        Example
-        -------
-        YY=ppm.yprofile(path_to_data)
-        YY.Dsolvedown(1,640)
         '''
         
         
@@ -3997,22 +4015,38 @@ class yprofile(DataPlot):
                               AtomicNocld = 1.34228187919):
         '''
         Plots entrainment rates for burnt and unburnt material
+        
         Parameters
         ----------
-        data_path : string
+        data_path : str
             data path
-        r1/r2 : float
+        r1 : float
             This function will only search for the convective 
             boundary in the range between r1/r2
+        r2 : float
         fit : boolean, optional
             show the fits used in finding the upper boundary
-        fit_bounds : [int,int]
+        fit_bounds : array
             The time to start and stop the fit for average entrainment
             rate units in minutes
         save : bool, optional
             save the plot or not
         lims : list, optional
             axes lims [xl,xu,yl,yu]
+            
+        Examples
+        ---------
+        
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
+            
+            @savefig plot_entrainment_rates.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: dumps = np.array(range(0,1400,100))
+               .....: F4.plot_entrainment_rates(dumps,27.7,28.5)
         '''
         atomicnocldinv = 1./AtomicNocld
         atomicnoairinv = 1./AtomicNoair
@@ -4214,7 +4248,33 @@ class yprofile(DataPlot):
                          integrate_upwards=False, show_output=True, ifig0=1, \
                          silent=True, mdot_curve_label=None, file_name=None,
                          return_time_series=False):
+        '''
+        Function for calculating entrainment rates.
         
+        Parameters
+        ----------
+        cycles : range
+            cycles to get entrainment rate for
+        r_min : float
+            minimum radius to look for boundary
+        r_max : float 
+            maximum radius to look for boundary
+        
+        Examples
+        ---------
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
+
+            @savefig entrainment_rate.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: dumps = np.array(range(0,1400,100))
+               .....: F4.entrainment_rate(dumps,27.7,28.5)
+               
+        '''
+
         def regrid(x, y, x_int):
             int_func = interpolate.CubicSpline(x[::-1], y[::-1])
             return int_func(x_int)
@@ -4377,6 +4437,24 @@ class yprofile(DataPlot):
 
     def boundary_radius(self, cycles, r_min, r_max, var='vxz', \
                         criterion='min_grad', var_value=None):
+        '''
+        Calculates the boundary of the yprofile.
+        
+        Parameters
+        ----------
+        cycles : range
+            range of yprofiles to calculate boundary for
+        r_min : float
+            min rad to look for boundary
+        r_max : float
+            max rad to look for boundary
+  
+        Returns
+        --------
+        rb : array
+            boundary of cycles
+        
+        '''
         eps = 1e-9
         n_cycles = len(cycles)
         rb = np.zeros(n_cycles)
@@ -4649,6 +4727,30 @@ class yprofile(DataPlot):
     def spacetime_diagram(self, var_name, nt, fig, tlim=None, rlim=None, vlim=None, logscale=True, \
                   cmap='viridis', aspect=1./3., zero_intervals=None, patience0 = 5, patience = 30, \
                   **kwargs):
+        ''' 
+        Creates a spacetime diagram.
+        
+        Parameters
+        -----------
+        var_name : str
+            variable to plot
+        nt : int
+            size of time vector, t = np.linspace(t0,tf,nt)
+            
+        Examples
+        --------
+        .. ipython::
+
+            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: ppm.set_YProf_path(data_dir+project)
+
+            @savefig space_time.png width=6in
+            In [136]: F4 = ppm.yprofile('F4')
+               .....: fig2 = figure(19)
+               .....: F4.spacetime_diagram('Ek',5,fig2)
+               
+        '''
         if var_name == 'Ek':
             cbar_lbl = r'e$_\mathrm{k}$ / erg g$^{-1}$'
             unit = 1e43/1e27
@@ -4933,7 +5035,7 @@ class LUT():
         compression_variables.txt in the setup directory of the respective
         project.
         
-        Examples:
+        Examples
         ---------
         import ppm
         lut = ppm.LUT('./ /BW-1536-UR-3.lut', s0=5., s1=245.499,
@@ -4978,7 +5080,7 @@ class LUT():
         correspond. returns a matplotlib.pyplot.colorbar instance, for ease of
         editing the colorbar
         
-        Parameters:
+        Parameters
         -----------
         ticks: numpy array
             at which values of the variable you would like to have ticks on the
@@ -4988,7 +5090,7 @@ class LUT():
             code units. so, if I give ticks in km/s, I should give
             scale_factor=1.e3
 
-        Examples:
+        Examples
         ---------
         import ppm
         lut = ppm.LUT('./LUTS/BW-1536-UR-3.lut', s0=5., s1=245.499, p0=0., p1=1.747543E-02/8.790856E-03, posdef=False)
@@ -5187,22 +5289,22 @@ def analyse_dump(rp, r1, r2):
 
     Parameters
     ----------
-    rp: radial profile object
+    rp : radial profile
         radial profile
-    r1: float
+    r1 : float
         minimum radius for the search for r_ub
-    r2: float
+    r2 : float
         maximum radius for the search for r_ub\
         
-    Output
+    Returns
     ------
-    r: array
+    r : array
         radius
-    ut: array
+    ut : array
         RMS tangential velocity profiles for all buckets (except the 0th)
-    dutdr: array
+    dutdr : array
         radial gradient of ut for all buckets (except the 0th)
-    r_ub: array
+    r_ub : array
         radius of the upper boundary as defined by the minimum in dutdr
         for all buckets  (except the 0th).
         
@@ -5264,24 +5366,27 @@ def upper_bound_ut(data_path, dump_to_plot, hist_dump_min,
 
     Parameters
     ----------
-    derivative = boolean
+    derivative : bool
         True = plot dut/dr False = plot ut
-    dump_To_plot = int
+    dump_To_plot : int
         The file number of the dump you wish to plot
     hist_dump_min/hist_dump_max = int
         Range of file numbers you want to use in the histogram
-    r1/r2 = float
+    r1/r2 : float
         This function will only search for the convective 
         boundary in the range between r1/r2
 
-    Example
-    -------
-    data_path = "/data/ppm_rpod2/RProfiles/O-shell-M25/D15/"
-    dump_to_plot = 121
-    hist_dump_min = 101; hist_dump_max = 135
-    r1 = 7.4; r2 = 8.4
-    upper_bound_ut(data_path, derivative, dump_to_plot,\
-        hist_dump_min, hist_dump_max, r1, r2)
+    Examples
+    --------
+    
+    .. ipython::
+    
+        In [136]: data_path = '/data/ppm_rpod2/RProfiles/AGBTP_M2.0Z1.e-5/F4/'
+           .....: dump = 560; hist_dmin = dump - 1; hist_dmax = dump + 1
+           .....: r_lim = (27.0, 30.5)
+        
+        @savefig upper_bound.png width=6in
+        In [136]: ppm.upper_bound_ut(data_path,dump, hist_dmin, hist_dmax,r1 = r_lim[0],r2 = 31, derivative = False,ylims = [1e-3,19.])
 
     '''
     cb = utils.colourblind
@@ -5494,11 +5599,11 @@ def v_evolution(cases, ymin, ymax, comp, RMS, sparse = 1, markevery = 25, ifig =
     lims : array
         axes lims [xl,xu,yl,yu]
     
-    Example
-    -------
+    Examples
+    ---------
     
     ppm.set_YProf_path('/data/ppm_rpod2/YProfiles/O-shell-M25/',YProf_fname='YProfile-01-0000.bobaaa')
-    v_evolution(['D15','D2','D1'], 4., 8.,'max','radial')
+    ppm.v_evolution(['D15','D2','D1'], 4., 8.,'max','radial')
 
     '''
     pl.close(ifig),pl.figure(ifig)
@@ -6062,8 +6167,8 @@ def compare_entrained_material(yps, labels, fname, ifig = 1):
     fname
         specific dump to access information from
         
-    Example
-    -------
+    Examples
+    --------
     import ppm
     yp1 = yprofile('/data/ppm_rpod2/YProfiles/agb-entrainment-convergence/H1')
     yp2 = yprofile('/data/ppm_rpod2/YProfiles/O-shell-M25/D2')
@@ -6115,8 +6220,8 @@ def get_power_spectrum_RProfile(yprof_path, rprof_path, r0, t_lim=None, t_res=No
     l_max:
         maximum spherical harmonic degree l
         
-    Output
-    ------
+    Returns
+    --------
     t,l,power : time, spherical harmonic degree l, and power vectors
     '''
     yprof = ppm.yprofile(yprof_path, filename_offset=-1)
@@ -6206,7 +6311,7 @@ def bucket_map(rprofile, quantity, limits = None, ticks = None, file_name = None
     '''
     Plots a Mollweide projection of the rprofile object using the mpl_toolkits.basemap package
     
-    Parameters:
+    Parameters
     -----------
     rprofile: rprofile object
         rprofile dump used just for geometry
@@ -6403,8 +6508,8 @@ def plot_Mollweide(rp_set, dump_min, dump_max, r1, r2, output_dir = None, Filena
     filename: string
         name for output file, None: no output
     
-    Example
-    -------
+    Examples
+    --------
     data_path = "/rpod2/PPM/RProfiles/AGBTP_M2.0Z1.e-5/F4"
     rp_set = rprofile.rprofile_set(data_path)
     plot_Mollweide(rp_set, 100,209,7.4,8.4)
@@ -6471,6 +6576,8 @@ def get_mach_number(rp_set,yp,dumps,comp):
 def plot_mach_number(rp_set,yp,dumps,comp = 'max',ifig = 1,lims =None,insert=False,save=False,\
                       prefix='PPM',format='pdf',lims_insert =None):
     '''
+    A function for geterating the time evolution of the mach number.
+    
     Parameters
     ----------
     yp: yprofile instance
@@ -6618,8 +6725,8 @@ def get_N2(yp, dump):
     dump = int
         dump to analyze
     
-    Output
-    ------
+    Returns
+    -------
     N2 = vector
         Brunt Vaisala frequency [rad^2 s^-1]
     '''
@@ -6678,8 +6785,8 @@ def plot_N2(case, dump1, dump2, lims1, lims2, mesa_A_model_num):
         lims1/lims2 = 4 index array
             axes limits [xmin xmax ymin ymax] lims1 = smaller window
 
-        Example
-        ------
+        Examples
+        --------
         import ppm
         set_YProf_path('/data/ppm_rpod2/YProfiles/O-shell-M25/')
         plot_N2('D1', 0, 132, mesa_A_model_num = 29350, mesa_B_model_num = 28950)
@@ -6740,17 +6847,17 @@ def energy_comparison(yprof,mesa_model, xthing = 'm',ifig = 2, silent = True,\
     
     Parameters
     ----------
-    yprof: yprofile object
+    yprof : yprofile object
         yprofile to examine
-    mesa_model
+    mesa_model : mesa_model
         mesa model to examine
-    xthing: string
+    xthing : str
         x axis as mass, 'm' or radius, 'r'
-    silent: boolean
+    silent : bool
         suppress output or not
-    range_conv1: range or None
+    range_conv1 : range, optional
         range to shade for convection zone 1
-    range_conv2: range or None
+    range_conv2 : range, optional
         range to shade for convection zone 2
     xlim: range
     ylim: range
@@ -6760,8 +6867,8 @@ def energy_comparison(yprof,mesa_model, xthing = 'm',ifig = 2, silent = True,\
     dlayerbot = 0.5
     totallum = 20.153
     
-    Example
-    -------
+    Examples
+    --------
     import ppm
     import nugrid.mesa as ms
     mesa_A_model_num = 29350
@@ -6920,7 +7027,8 @@ def get_heat_source(yprof, radbase = 4.1297, dlayerbot = 0.5, totallum = 20.153)
     return np.transpose(np.array([r, m, eps]))
 
 def get_mesa_time_evo(mesa_path,mesa_logs,t_end,save = False):
-    '''Function to generate data for figure 5 in O-shell paper.
+    '''
+    Function to generate data for figure 5 in O-shell paper.
     
     Parameters
     ----------
@@ -6933,16 +7041,25 @@ def get_mesa_time_evo(mesa_path,mesa_logs,t_end,save = False):
     save : boolean,optional
         save the output into data files
         
-    Returns (all arrays)
+    Returns
     -------
-    agearr : age yrs
-    ltlarr  : time until core collapse
-    rbotarr : radius of lower convective boundary
-    rtoparr : radius of top convective boundary
-    muarr : mean molecular weight in convective region
-    peakLarr : peak luminosity
-    peakL_Lsunarr : peak luminosity units Lsun
-    peakepsgravarr :
+    agearr : array
+        age yrs
+    ltlarr  : array
+        time until core collapse
+    rbotarr : array
+        radius of lower convective boundary
+    rtoparr : array
+        radius of top convective boundary
+    muarr : array
+        mean molecular weight in convective region
+    peakLarr : array
+        peak luminosity
+    peakL_Lsunarr : array
+        peak luminosity units Lsun
+    peakepsgravarr : array
+        peak sepperation
+    
     '''
     tag = 'shell1'
     #tag = 'shell2'
@@ -7033,13 +7150,13 @@ def plot_mesa_time_evo(mesa_path,mesa_logs,t_end,ifig=21):
         cycles you would like to include in the plot
     t_end : float
         time of core collapse
-    save : boolean,optional
+    save : boolean, optional
         save the output into data files
         
-    Example
-    -------
+    Examples
+    --------
     plot_mesa_time_evo('/data/ppm_rpod2/Stellar_models/O-shell-M25/M25Z0.02/LOGS',
-                   range(550,560),7.5829245098141646E+006,ifig=21)
+        range(550,560),7.5829245098141646E+006,ifig=21)
     '''
     cb = utils.colourblind
     #pl.close(ifig),pl.figure(ifig)
@@ -7061,16 +7178,7 @@ def plot_mesa_time_evo(mesa_path,mesa_logs,t_end,ifig=21):
     rbot = data[2]
     rtop = data[3]
     epsgrav = data[7]
-    '''
-    age = np.load(tag+'age.npy')
-    ltl = np.load(tag+'ltl.npy')
-    mu = np.load(tag+'mu.npy')
-    peakL_Lsun = np.load(tag+'peakL_Lsun.npy')
-    peakL = np.load(tag+'peakL.npy')
-    rbot = np.load(tag+'rbot.npy')
-    rtop = np.load(tag+'rtop.npy')
-    epsgrav = np.load(tag+'peakepsgrav.npy')
-    '''
+
     xax = ltl
     #xax = age
 
@@ -7103,31 +7211,30 @@ def plot_mesa_time_evo(mesa_path,mesa_logs,t_end,ifig=21):
 def plot_entr_v_ut(cases,c0, Ncycles,r1,r2, comp,metric,label,ifig = 3,
                   integrate_both_fluids = False):
     '''
-    Plots entrainment rate vs max radial or tangential velocity
+    Plots entrainment rate vs max radial or tangential velocity.
     
     Parameters
     ----------
-    cases : string array
+    cases : string list
         list of cases i.e.D1 
-    c0 : int array
+    c0 : list
         cycle to start on for each case
     Ncycles: int
         number of cycles to average to find v
-    r1/r2 :floats
-        radius range to search for v
-    comp : string
+    r1 :float
+        radius range to search for v, also r2
+    comp : str
         component of velocity 'tangential' or 'radial'
-    metric : string
+    metric : str
         metric of veloctiy 'min' max' or 'mean'
         
-    Example
-    -------
+    Examples
+    --------
     cases = ('D1', 'D8', 'D5', 'D6', 'D9', 'D10', 'D20', 'D23', 'D2')
     c0 = (241,154,142,155,123,78,355,241,124)
     global ppm_path
     ppm_path = '/data/ppm_rpod2/YProfiles/O-shell-M25/'    
-    plot_entr_v_ut(cases,c0,10,7.5,8.5,ifig = 3,
-                      integrate_both_fluids = False)
+    plot_entr_v_ut(cases,c0,10,7.5,8.5,ifig = 3,integrate_both_fluids = False)
     '''
     mdot = np.zeros(len(cases))
     vt = np.zeros(len(cases))
@@ -7204,7 +7311,7 @@ def plot_diffusion_profiles(run,mesa_path,mesa_log,rtop,Dsolve_range,tauconv,r0,
     f1,f2 : float
         parameters of the model
         
-    Example
+    Examples
     --------
     plot_diffusion_profiles('D2','/data/ppm_rpod2/Stellar_models/O-shell-M25/M25Z0.02/',28900,
                         7.8489,(1,160),2.*460.,7.8282,10.**12.27,0.21,0.055,1.6)

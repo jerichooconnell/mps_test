@@ -1818,7 +1818,7 @@ class yprofile(DataPlot):
             
             @savefig prof_time.png width=6in
             In [136]: D2 = ppm.yprofile('D2')
-               .....: D2.vprofs(100)
+               .....: D2.vprofs(100,ifig = 111)
         """
             
         ## fsize=14

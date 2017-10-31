@@ -36,6 +36,8 @@ Here is an example runthrough.
 
 and
 
+.. ipython::
+
     In [136]: D2=ppm.yprofile('D2')
        .....: D2.vprofs(100)
 

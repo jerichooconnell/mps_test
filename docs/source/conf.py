@@ -68,6 +68,8 @@ napoleon_use_rtype = True
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
+ipython_execlines = ['import numpy as np', 'import matplotlib.pyplot as plt', 'from ppmpy import ppm'] 
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #

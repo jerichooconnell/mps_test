@@ -41,6 +41,17 @@ ABOUT PLOTTING EXAMPLES IN DOCSTRINGS:
     the command for this is:
     
     .. plot::
+        
+        plot(...)
+    
+    or 
+    
+    .. ipython::
+    
+        @savefig your_fig_name width=4
+        plot(...)
+        
+    Both which generate plots
     
     and the code used for the plot should be indented, and the whitespace before and
     after is important.
@@ -48,3 +59,5 @@ ABOUT PLOTTING EXAMPLES IN DOCSTRINGS:
     For more info see:
     
     http://matplotlib.org/sampledoc/extensions.html
+    http://matplotlib.org/sampledoc/ipython_directive.html
+    https://ipython.org/ipython-doc/3/api/generated/IPython.sphinxext.ipython_directive.html

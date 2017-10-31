@@ -10,9 +10,14 @@
 """ 
 ppmpy.ppm
 
-PPM is a Python module for reading Yprofile-01-xxxx.bobaaa files.
-Simple session for working with ppm.py, here I assume user's working
-directory contains some YProfile files.
+PPM is a Python module for reading Yprofile-01-xxxx.bobaaa files as well as
+some analysis involving Rprofile files and Mesa stellar models.
+
+Simple session for working with ppmpy, here I assume user's working on
+
+`astrohub <https://astrohub.uvic.ca/>`_
+
+Which is the intended environment for ppmpy.
 
 If the user find any bugs or errors, please email us.
 

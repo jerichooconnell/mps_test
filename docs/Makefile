@@ -18,7 +18,7 @@ gh-pages:
 	make clean
 	make html
 	git add -A && git commit -m "building and pushing docs" && git push origin jerichoo_new_docs
-	cd .. && git checkout gh-pages && touch .nojekyll && rm -rf _sources _static _images _autosummary && git checkout master docs/build/html && mv ./docs/build/html/* ./ && rm -rf ./docs && git add -A && git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout jerichoo_new_docs
+	cd .. && git checkout gh-pages && touch .nojekyll && rm -rf _sources _static _images _autosummary && git checkout jerichoo_new_docs docs/build/html && mv ./docs/build/html/* ./ && rm -rf ./docs && git add -A && git commit -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && git push origin gh-pages ; git checkout jerichoo_new_docs
     
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

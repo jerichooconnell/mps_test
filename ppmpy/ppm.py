@@ -17,7 +17,7 @@ Simple session for working with ppmpy, here I assume user's working on
 
 `astrohub <https://astrohub.uvic.ca/>`_
 
-Which is the intended environment for ppmpy.
+which is the intended environment for ppmpy.
 
 If the user find any bugs or errors, please email us.
 
@@ -121,10 +121,6 @@ def set_nice_params():
 
 def set_YProf_path(path,YProf_fname='YProfile-01-0000.bobaaa'):
     '''
-
-    set_YProf_path
-    ==============
-
     Set path to location where YProfile directories can be found.
 
     For example, set path to the swj/PPM/RUNS_DIR VOSpace directory
@@ -150,7 +146,7 @@ def prof_compare(cases,ndump=None,yaxis_thing='FV H+He',ifig=None,num_type='ndum
                  labels=None,logy=True):
     """
     Compare profiles of quantities from multiple PPM Yprofile instances at a
-        given time of nump number.
+    given time of nump number.
         
     Parameters
     ----------
@@ -180,17 +176,32 @@ def prof_compare(cases,ndump=None,yaxis_thing='FV H+He',ifig=None,num_type='ndum
         Should the y-axis have a logarithmic scale?
         The default is True.
         
-    Examples
+    Example
     --------
         
-        import ppm
-        run1='/rpod3/fherwig/PPM/RUNS_DATA/VLTP_MESA_M0.542/C1'
-        run2='/rpod3/fherwig/PPM/RUNS_DATA/sakurai-num-exp-robustness-onset-GOSH/A1'
-        YY=ppm.yprofile(run1)
-        YY2=ppm.yprofile(run2)
-        ppm.prof_compare([YY,YY2],ndump=100,num_type='time',
-                        labels=['VLTP_0.543','SAK'],yaxis_thing='Rho',
-                        logy=False)
+    .. ipython::
+
+        In [136]: from ppmpy import ppm
+           .....: data_dir = '/data/ppm_rpod2/YProfiles/'
+           .....: project = 'O-shell-M25'
+           .....: ppm.set_YProf_path(data_dir+project)
+
+        In [136]: D2=ppm.yprofile('D2')
+           .....: D1=ppm.yprofile('D1')
+           .....: prof_compare([D2,D1])
+
+
+    .. plot::
+
+        from ppmpy import ppm
+        data_dir = '/data/ppm_rpod2/YProfiles/'
+        project = 'O-shell-M25'
+        ppm.set_YProf_path(data_dir+project)
+
+        D2=ppm.yprofile('D2')
+        D1=ppm.yprofile('D1')
+        prof_compare([D2,D1])
+
 
     """
 
@@ -552,6 +563,8 @@ class yprofile(DataPlot):
     def getColData(self, attri, FName, numType='ndump', resolution='H',
                    cycle=False, silent=False):
         """ 
+        Method that returns column data.
+        
         Parameters
         ----------
         attri : string
@@ -757,6 +770,25 @@ class yprofile(DataPlot):
 
     def computeData(self, attri, fname, numtype = 'ndump', silent=False,\
                     **kwargs):
+        '''
+        Method for computing data not in Yprofile file
+        
+        Parameters
+        ----------
+        attri : str
+            What you are looking for
+        fname : int
+            what dump or time you are look for attri at
+            time or dump specifies by numtype.
+        numtype : str, optional
+            'ndump' or 'time' depending on which you are
+            looking for
+            
+        Returns
+        -------
+        attri : array
+            An array for the attirbute you are looking for
+        '''
         def get_missing_args(required_args, **kwargs):
             missing_args = []
 
@@ -1308,6 +1340,11 @@ class yprofile(DataPlot):
             function will look at the cycle with that nDump.  If
             numType is 'T' or 'time' function will find the cycle with
             the closest time stamp.  The default is "FILE".
+        
+        Returns
+        -------
+        FName : int
+            The number corresponding to the file.
             
         """
 
@@ -1595,11 +1632,27 @@ class yprofile(DataPlot):
 
         Examples
         --------
-            
-            import ppm
-            run='/rpod3/fherwig/PPM/RUNS_DATA/VLTP_MESA_M0.542/C1'
-            YY=ppm.yprofile(run)
-            YY.prof_time([0,5,10,15,20,25],logy=False,num_type='time',radbase=10.7681,radtop=23.4042)
+        
+        .. ipython::
+
+            In [136]: from ppmpy import ppm
+               .....: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'O-shell-M25'
+               .....: ppm.set_YProf_path(data_dir+project)
+
+            In [136]: D2=ppm.yprofile('D2')
+               .....: D2.prof_time([0,5,10],logy=False,num_type='time')
+
+
+        .. plot::
+
+            #from ppmpy import ppm
+            data_dir = '/data/ppm_rpod2/YProfiles/'
+            project = 'O-shell-M25'
+            ppm.set_YProf_path(data_dir+project)
+
+            D2=ppm.yprofile('D2')
+            D2.prof_time([0,5,10],logy=False,num_type='time')         
 
         """
     

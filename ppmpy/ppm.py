@@ -188,7 +188,7 @@ def prof_compare(cases,ndump=None,yaxis_thing='FV H+He',ifig=None,num_type='ndum
 
         In [136]: D2=ppm.yprofile('D2')
            .....: D1=ppm.yprofile('D1')
-           .....: prof_compare([D2,D1])
+           .....: ppm.prof_compare([D2,D1])
 
 
     .. plot::
@@ -200,7 +200,7 @@ def prof_compare(cases,ndump=None,yaxis_thing='FV H+He',ifig=None,num_type='ndum
 
         D2=ppm.yprofile('D2')
         D1=ppm.yprofile('D1')
-        prof_compare([D2,D1])
+        ppm.prof_compare([D2,D1])
 
 
     """
@@ -1646,7 +1646,7 @@ class yprofile(DataPlot):
 
         .. plot::
 
-            #from ppmpy import ppm
+            from ppmpy import ppm
             data_dir = '/data/ppm_rpod2/YProfiles/'
             project = 'O-shell-M25'
             ppm.set_YProf_path(data_dir+project)
@@ -1760,8 +1760,8 @@ class yprofile(DataPlot):
     
     def get_mass_fraction(fluid,fname,resolution):
         '''
-            Get mass fraction profile of fluid 'fluid' at fname with resolution
-            'resolution'.
+        Get mass fraction profile of fluid 'fluid' at fname with resolution
+        'resolution'.
         '''
         y = self.get(fluid,fname=fname,resolution=resolution)
         if fluid == 'FV H+He':
@@ -1826,10 +1826,27 @@ class yprofile(DataPlot):
         Examples
         --------
             
-            import ppm
-            run='/rpod3/fherwig/PPM/RUNS_DATA/VLTP_MESA_M0.542/C1'
-            YY=ppm.yprofile(run)
-            YY.vprofs([90,100],log_logic=True)
+        .. ipython::
+
+            In [136]: from ppmpy import ppm
+               .....: data_dir = '/data/ppm_rpod2/YProfiles/'
+               .....: project = 'O-shell-M25'
+               .....: ppm.set_YProf_path(data_dir+project)
+            
+            @savefig hist_with_text.png width=4in
+            In [136]: D2=ppm.yprofile('D2')
+               .....: D2.prof_time([0,5,10],logy=False,num_type='time')
+
+
+        .. plot::
+
+            from ppmpy import ppm
+            data_dir = '/data/ppm_rpod2/YProfiles/'
+            project = 'O-shell-M25'
+            ppm.set_YProf_path(data_dir+project)
+
+            D2=ppm.yprofile('D2')
+            D2.prof_time([0,5,10],logy=False,num_type='time')     
 
         """
             

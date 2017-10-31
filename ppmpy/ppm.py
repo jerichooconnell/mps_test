@@ -34,18 +34,18 @@ Here is an example runthrough.
 
     In [136]: ppm.cases
 
+and
+
     In [136]: D2=ppm.yprofile('D2')
        .....: D2.vprofs(100)
 
-and
+plots the data.
     
 .. plot::
 
     import ppmpy.ppm as ppm
     D2 = ppm.yprofile('/data/ppm_rpod2/YProfiles/O-shell-M25/D2')
     D2.vprofs(100)
-
-plots the data.
 
 """
 from numpy import *

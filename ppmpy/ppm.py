@@ -55,6 +55,10 @@ plots the data.
     D2.vprofs(100)
 
 """
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+
 from numpy import *
 import numpy as np
 from math import *
@@ -1629,20 +1633,10 @@ class yprofile(DataPlot):
                .....: data_dir = '/data/ppm_rpod2/YProfiles/'
                .....: project = 'O-shell-M25'
                .....: ppm.set_YProf_path(data_dir+project)
-
+            
+            @savefig prof_time.png width=6in
             In [136]: D2 = ppm.yprofile('D2')
-               .....: D2.prof_time([0,5,10],logy=False,num_type='time')
-
-
-        .. plot::
-
-            from ppmpy import ppm
-            data_dir = '/data/ppm_rpod2/YProfiles/'
-            project = 'O-shell-M25'
-            ppm.set_YProf_path(data_dir+project)
-
-            D2=ppm.yprofile('D2')
-            D2.prof_time([0,5,10],logy=False,num_type='time')         
+               .....: D2.prof_time([0,5,10],logy=False,num_type='time')       
 
         """
     
@@ -1822,10 +1816,9 @@ class yprofile(DataPlot):
                .....: project = 'O-shell-M25'
                .....: ppm.set_YProf_path(data_dir+project)
             
-            @savefig prof_time.png width=4in
+            @savefig prof_time.png width=6in
             In [136]: D2 = ppm.yprofile('D2')
-               .....: D2.prof_time([0,5,10],logy=False,num_type='time') 
-
+               .....: D2.vprofs(100)
         """
             
         ## fsize=14
@@ -2239,12 +2232,12 @@ class yprofile(DataPlot):
         .. ipython::
 
             In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
-               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: project = 'O-shell-M25'
                .....: ppm.set_YProf_path(data_dir+project)
             
             @savefig tEKmax.png width=6in
-            In [136]: F4 = ppm.yprofile('F4')
-               .....: F4.tEkmax(ifig=11,label='F4',id=1)
+            In [136]: D2 = ppm.yprofile('D2')
+               .....: D2.tEkmax(ifig=77,label='D2',id=0)
         
         """
         
@@ -2324,12 +2317,12 @@ class yprofile(DataPlot):
         .. ipython::
 
             In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
-               .....: project = 'AGBTP_M2.0Z1.e-5'
+               .....: project = 'O-shell-M25'
                .....: ppm.set_YProf_path(data_dir+project)
             
             @savefig tvmax.png width=6in
-            In [136]: F4 = ppm.yprofile('F4')
-               .....: F4.tvmax(ifig=11,label='F4',id=1)
+            In [136]: D2 = ppm.yprofile('D2')
+               .....: D2.tvmax(ifig=11,label='D2',id=0)
             
         """
         
@@ -3488,19 +3481,7 @@ class yprofile(DataPlot):
             radial co-ordinates (Mm) for which we have a diffusion coefficient
         D : array
             Diffusion coefficient (cm^2/s)
-        
-        Examples
-        ---------
-        
-        .. ipython::
 
-            In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
-               .....: project = 'AGBTP_M2.0Z1.e-5'
-               .....: ppm.set_YProf_path(data_dir+project)
-            
-            @savefig Dsolvedown.png width=6in
-            In [136]: F4 = ppm.yprofile('F4')
-               .....: res = F4.Dsolvedown(1,640)
         '''
     
     
@@ -4747,7 +4728,8 @@ class yprofile(DataPlot):
 
             @savefig space_time.png width=6in
             In [136]: F4 = ppm.yprofile('F4')
-               .....: fig2 = figure(19)
+               .....: import matplotlib.pyplot as plt
+               .....: fig2 = plt.figure(19)
                .....: F4.spacetime_diagram('Ek',5,fig2)
                
         '''

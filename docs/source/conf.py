@@ -128,7 +128,7 @@ html_theme_options = {
     'github_user': 'PPMstar',
     'github_button': True,
     'show_related': True,
-    'fixed_sidebar': False
+    'fixed_sidebar': True
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

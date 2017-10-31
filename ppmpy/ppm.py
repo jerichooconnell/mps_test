@@ -8,7 +8,7 @@
 #
 
 """ 
-ppm.py
+ppmpy.ppm
 
 PPM is a Python module for reading Yprofile-01-xxxx.bobaaa files.
 Simple session for working with ppm.py, here I assume user's working
@@ -16,122 +16,34 @@ directory contains some YProfile files.
 
 If the user find any bugs or errors, please email us.
 
-Yprofile files Assumptions
---------------------------
 
-- labeled as YProfile-01-xxxx.bobaaa and the xxxx is the NDump that is
-  located within each file.
-
-- There can be a maximum of 9999 files in each directory.  The first 10
-  lines of each file are the only place where header data is uniquely
-  located.
-
-- Header data is separated by five spaces and line breaks.
-
-- An attribute cant be in the form of a number, ie if the user is able
-  to 'float(attribute)' (in python) without an error attribute will not
-  be returned.
-
-- A row of column Names or Cycle Names is preceded and followed by a
-  blank line.
-
-- A block of data values are preceded and followed by a blank line
-  except the last data block in the file, where it is not followed by a
-  blank line.
-
-- In the YProfile file, if a line of attributes contains the attribute
-  Ndump, then that line of attributes and any other following lines of
-  attributes in the file are cycle attributes.
-
-Header Attribute Assumptions
-----------------------------
-
-- Header attributes are separated by lines and instances of four spaces
-  (    )
-
-- Header attribute come in one of below here are things that do stuff
-  with the data 6 types.
-
-- The first type is the first attribute in the file. It is formatted in
-  such a way that the name of the attribute is separated from its
-  associated data with an equals sign ex.
-  Stellar Conv. Luminosity =  1.61400E-02 x 10^43 ergs,
-
-- The second type is when an attribute contains the sub string 'grid;'.
-  It is formatted in such a way such that there are 3 numerical values
-  separated by 'x' which are then followed by the string ' grid;' ex.
-  384 x 384 x 384 grid;
-
-- The third type is were name of the attribute is separated from its
-  associated data with an equals sign.  Also that data may be followed
-  by a unit of measurement. ex.
-  Thickness (Mm) of heating shell =  1.00000E+00
-
-- The fourth type is when an attribute contains a colon.  The String
-  before the colon is the title of the attribute.  After the colon there
-  is a list of n sub attributes, each with a sub title, and separated by
-  its value with an equals sign.  Aslo each sub attribute is separated
-  by a comma ex.
-  At base of the convection zone:  R =  9.50000E+00,  g =  4.95450E-01,
-  rho =  1.17400E+01,  p =  1.69600E+01
-
-- The fifth is when an attribute starts with 'and'.  after the and, the
-  next word after has to be the same as one word contained in the
-  previous attribute ex.
-  and of transition from convection to stability =  5.00000E-01  at
-  R =  3.00000E+01 Mm.
-
-- The sixth is when there is a string or attribute title followed by two
-  spaces followed by one value followed by two spaces followed by an
-  'and' which is then followed by a second Value ex.
-  Gravity turns on between radii   6.00000E+00  and   7.00000E+00  Mm.
-
-Examples
---------
+Example
+=========
 
 Here is an example runthrough.
 
 
 .. ipython::
->>> from ppm import *
->>> p=y_profile()
->>> head= p.hattri
->>> cols= p.dcols
->>> cyc=p.cattri
->>> print head
-[['Stellar Conv. Luminosity', '1.61400E-02 x 10^43 ergs,'], ['384 x 384 x 384 grid;'], ... ]
->>> print cols
-['j', 'Y', 'FVconv', 'UYconv', ... , 'Ek H+He']
->>> print cyc
-['Ndump', 't', 'trescaled', 'Conv Ht', 'H+He Ht', ..., 'EkXZHHeMax']
->>> j2=p.getColData('j','Yprofile-01-0002',numType='file',resolution='a')
->>> print j2
-[[384.0, 383.0, 382.0,..., 1.0],[192.0, 191.0, 190.0,...,1.0]]
->>> j2=p.get('j')
->>> print j2
-[[384.0, 383.0, 382.0,..., 1.0],[192.0, 191.0, 190.0,...,1.0]]
->>> j55=p.getColData('j',55,numType='t',resolution='l')
-The closest time is at Ndump = 2
->>> print j55
->>> y=p.getColData('Rho1 H+He',2, resolution='L')
->>> print y
-[2.0420099999999999e-07, 5.4816300000000004e-07, ... , 0]
+
+    In [136]: from ppmpy import ppm
+       .....: !ls /data/ppm_rpod2/YProfiles/
+
+    In [136]: data_dir = '/data/ppm_rpod2/YProfiles/'
+       .....: project = 'O-shell-M25'
+       .....: ppm.set_YProf_path(data_dir+project)
+
+    In [136]: ppm.cases
+
+    In [136]: D2=ppm.yprofile('D2')
+       .....: D2.vprofs(100)
 
 and
-
-.. ipython::
-
-   In [136]: x = 2
-   
-   In [137]: print(x**3)
-   
-   In [137]: print(x**3)
     
 .. plot::
 
     import ppmpy.ppm as ppm
-    D1 = ppm.yprofile('/data/ppm_rpod2/YProfiles/O-shell-M25/D1')
-    D1.vprofs([90,100],log_logic=True)
+    D2 = ppm.yprofile('/data/ppm_rpod2/YProfiles/O-shell-M25/D2')
+    D2.vprofs(100)
 
 plots the data.
 
@@ -235,7 +147,6 @@ def prof_compare(cases,ndump=None,yaxis_thing='FV H+He',ifig=None,num_type='ndum
         
     Parameters
     ----------
-        
     cases : list
         list containing the Yprofile instances that you want to compare
     ndump : string or int, optional
@@ -404,7 +315,7 @@ class yprofile(DataPlot):
             
         Returns
         -------
-        dictionary
+        dictionary : dict
             the filenamem, ndump dictionary
             
         """
@@ -509,6 +420,8 @@ class yprofile(DataPlot):
 
     def getHeaderData(self, attri, silent=False):
         """ 
+        Method returns header attributes.
+        
         Parameters
         ----------        
         attri : string
@@ -516,7 +429,7 @@ class yprofile(DataPlot):
         
         Returns
         -------
-        string or integer
+        data : string or integer
             Header data that is associated with the attri.
 
         Notes
@@ -539,6 +452,9 @@ class yprofile(DataPlot):
     def getCycleData(self, attri, FName=None, numType='ndump',
                      Single=False, resolution='H', silent=False):
         """ 
+        Method that returns a Datalist of values for the given attribute or a
+        single attribute in the file FName.
+        
         Parameters
         ----------
         attri : string
@@ -1512,8 +1428,7 @@ class yprofile(DataPlot):
 
         Input -> A List of headers in the proper format
 
-        Assumptions
-        ===========
+        Assumptions:
         
         The first element in the list is Stellar Conv. Luminosity header
 
@@ -1634,7 +1549,6 @@ class yprofile(DataPlot):
             
         Parameters
         ----------
-        
         fname : int or list
             Cycle or list of cycles to plot. Could also be time
             in minutes (see num_type).
@@ -1647,8 +1561,13 @@ class yprofile(DataPlot):
         logy : boolean
             Should the velocity axis be logarithmic?
             The default value is False
-        radbase, radtop : float
-            Radii of the base and top of the convective region,
+        radbase : float
+            Radii of the base of the convective region,
+            respectively. If not None, dashed vertical lines will
+            be drawn to mark these boundaries.
+            The default value is None.
+        radtop : float
+            Radii of the top of the convective region,
             respectively. If not None, dashed vertical lines will
             be drawn to mark these boundaries.
             The default value is None.

@@ -77,8 +77,8 @@ from scipy import optimize
 from scipy import integrate as integrate
 import copy
 import sys
-sys.path.insert(0, '/data/ppm_rpod2/lib/lcse')
-import rprofile as rprof
+sys.path.insert(0, '/home/user/')
+import rprofile3 as rprof
 
 cb = utils.colourblind
 
@@ -1816,7 +1816,7 @@ class yprofile(DataPlot):
                .....: project = 'O-shell-M25'
                .....: ppm.set_YProf_path(data_dir+project)
             
-            @savefig prof_time.png width=6in
+            @savefig vprofs.png width=6in
             In [136]: D2 = ppm.yprofile('D2')
                .....: D2.vprofs(100,ifig = 111)
         """
@@ -5330,7 +5330,7 @@ def analyse_dump(rp, r1, r2):
     return r, ut, dutdr, r_ub
 
 def upper_bound_ut(data_path, dump_to_plot, hist_dump_min,
-                   hist_dump_max, ylims = None, derivative = False, r1=7.4, r2=8.4, silent = True):
+                   hist_dump_max, r1, r2, ylims = None, derivative = False, silent = True):
 
     '''
     Finds the upper convective boundary as defined by the steepest decline in 
@@ -5575,7 +5575,7 @@ def v_evolution(cases, ymin, ymax, comp, RMS, sparse = 1, markevery = 25, ifig =
     RMS : string
         options: 'min', 'max' or 'mean'. What aspect of the RMS velocity
         to look at
-    first_dump,last_dump : int, optional
+    dumps : int, optional
         Gives the range of dumps to plot if larger than last dump
         will plot up to last dump
     lims : array
@@ -5593,15 +5593,15 @@ def v_evolution(cases, ymin, ymax, comp, RMS, sparse = 1, markevery = 25, ifig =
     ls = utils.linestylecb
     yy = 0
     for case in cases:
-
+        
         try:
-            prof = yprofile(ppm_path+case)
+            prof = yprofile(os.path.join(ppm_path,case))
         except ValueError:
             print("have you set the yprofile filepath using ppm.set_YProf_path?")
         if dumps[1] > prof.cycles[-1]:
             end = -1
         else:
-            end = last_dump
+            end = dumps[1]
         cycles = list(range(prof.cycles[dumps[0]], prof.cycles[end], sparse))
         t, vr_max = get_v_evolution(prof, cycles, ymin, ymax, comp, RMS)
         pl.plot(t/60.,  1e3*vr_max,  color = cb(yy),\
@@ -5778,7 +5778,7 @@ def L_H_L_He_comparison(cases, sparse = 1, ifig=101,L_He = 2.25*2.98384E-03,airm
     for case in cases:
         
         try:
-            yprofs[case] = yprofile(ppm_path+case)
+            yprofs[case] = yprofile(os.path.join(ppm_path,case))
         except ValueError:
             print("have you set the yprofile filepath using ppm.set_YProf_path?")
         
@@ -5828,13 +5828,23 @@ def L_H_L_He_comparison(cases, sparse = 1, ifig=101,L_He = 2.25*2.98384E-03,airm
     pl.close(ifig); pl.figure(ifig)
     pl.axhline((1e43/ast.lsun_erg_s)*L_He, ls = '--', color = cb(4), \
         label = r'L$_\mathrm{He}$')
-    i =0
+    
+    markers = ['o','v', '^', '<', '>', 's']
+    colours = [5, 8, 1, 6, 9, 3]
+    
+    i =0;j =0;nn=0 # super hacky hack for nice colours
+    
     for this_case in cases:
         lbl = r'{:s} $\left({:d}^3\right)$'.format(this_case, res[this_case])
         pl.semilogy(t[this_case]/60., (1e43/ast.lsun_erg_s)*L_H[this_case], \
-            ls = '-', color = cb(i), marker= 's', \
+            ls = '-', color = cb(colours[i]), marker= markers[j], \
             label = this_case)
         i+=1
+        j+=1
+        if j == 6:
+            nn+=1
+            i = 0
+            j = nn
     if lims is not None:
         pl.axis(lims)
     pl.xlabel('t / min')
@@ -6519,7 +6529,7 @@ def plot_Mollweide(rp_set, dump_min, dump_max, r1, r2, output_dir = None, Filena
         
     bucket_map(rp, dr_ub_avg, file_name = filename)
 
-def get_mach_number(rp_set,yp,dumps,comp):
+def get_mach_number(rp_set,yp,dumps,comp,filename_offset = 1):
     '''
     Returns max Mach number and matching time vector
     
@@ -6545,7 +6555,7 @@ def get_mach_number(rp_set,yp,dumps,comp):
 
     for i in range(nd):
         rp = rp_set.get_dump(dumps[i])
-        t[i] = yp.get('t', fname = dumps[i] - 1, resolution = 'l')[-1]
+        t[i] = yp.get('t', fname = dumps[i] - filename_offset, resolution = 'l')[-1]
         if comp == 'max':
             Ma_max[i] = np.max(rp.get_table('mach')[2, :, 0])
         if comp == 'mean':
@@ -6556,7 +6566,7 @@ def get_mach_number(rp_set,yp,dumps,comp):
     return Ma_max, t
 
 def plot_mach_number(rp_set,yp,dumps,comp = 'max',ifig = 1,lims =None,insert=False,save=False,\
-                      prefix='PPM',format='pdf',lims_insert =None):
+                      prefix='PPM',format='pdf',lims_insert =None,f_offset=1):
     '''
     A function for geterating the time evolution of the mach number.
     
@@ -6582,9 +6592,9 @@ def plot_mach_number(rp_set,yp,dumps,comp = 'max',ifig = 1,lims =None,insert=Fal
         see 'save' above
     '''
     try:
-        Ma_max,t = get_mach_number(rp_set,yp,dumps,comp)
+        Ma_max,t = get_mach_number(rp_set,yp,dumps,comp,filename_offset = f_offset)
     except:
-        print('Dumps range must start at a value of 1 or greater')
+        print('Dumps range must start at a value of 1 or greater due to filename offset between rprofiles and yprofiles')
     ifig = ifig; pl.close(ifig); fig = pl.figure(ifig)
     ax1 = fig.add_subplot(111)
     ax1.plot(t/60., Ma_max, color=cb(3))
@@ -6751,7 +6761,7 @@ def get_N2(yp, dump):
     
     return N2
 
-def plot_N2(case, dump1, dump2, lims1, lims2, mesa_A_model_num):
+def plot_N2(case, dump1, dump2, lims1, lims2,mesa_logs_path, mesa_model_num):
 
     '''
         plots squared Brunt-Vaisala frequency N^2 with zoom window
@@ -6771,12 +6781,11 @@ def plot_N2(case, dump1, dump2, lims1, lims2, mesa_A_model_num):
         --------
         import ppm
         set_YProf_path('/data/ppm_rpod2/YProfiles/O-shell-M25/')
-        plot_N2('D1', 0, 132, mesa_A_model_num = 29350, mesa_B_model_num = 28950)
+        plot_N2('D1', 0, 132, mesa_model_num = 29350, mesa_B_model_num = 28950)
         '''
     ppm_run= case
-    yp = yprofile(ppm_path + case)
-    mesa_logs_path = '/data/ppm_rpod2/Stellar_models/O-shell-M25/M25Z0.02/LOGS_N2b'
-    mesa_A_prof = ms.mesa_profile(mesa_logs_path, mesa_A_model_num)
+    yp = yprofile(os.path.join(ppm_path + case))
+    mesa_A_prof = ms.mesa_profile(mesa_logs_path, mesa_model_num)
     # convert the mesa variables to code units
     mesa_A_r = (ast.rsun_cm/1e8)*mesa_A_prof.get('radius')
     mesa_A_N2 = mesa_A_prof.get('brunt_N2')
@@ -7086,7 +7095,7 @@ def get_mesa_time_evo(mesa_path,mesa_logs,t_end,save = False):
         ibot = np.where(mt==1)[0][-1]
         rbot = rad[ibot]*ast.rsun_cm/1.e8
         mbot = mass[ibot]
-        mu = mu[(itop+ibot)/2]
+        mu = mu[int((itop+ibot)/2)]
         # time from end of core O burning
         iaoe = np.where(s.get('center_o16')>1e-3)[0][-1] #was 's'?
         aoe = s.get('star_age')[iaoe] #was 's'?
@@ -7223,7 +7232,7 @@ def plot_entr_v_ut(cases,c0, Ncycles,r1,r2, comp,metric,label,ifig = 3,
     vr = np.zeros(len(cases))
 
     for i in range(len(cases)):
-        prof = yprofile(ppm_path + cases[i])
+        prof = yprofile(os.path.join(ppm_path,cases[i]))
         cycles = list(range(c0[i], c0[i] + Ncycles, 1))
         #vt[i], vr[i] = find_max_velocities(prof, cycles, 7.5, 8.5, 4., 8., label = cases[i], ifig = i)
         t, v = get_v_evolution(prof, cycles, r1,r2,comp = comp, RMS = metric)

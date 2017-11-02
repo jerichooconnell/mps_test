@@ -55,9 +55,9 @@ plots the data.
     D2.vprofs(100)
 
 """
-from __future__ import division
-from __future__ import print_function
-from __future__ import absolute_import
+from __future__ import (absolute_import, division,
+                        print_function, unicode_literals)
+
 
 from numpy import *
 import numpy as np
@@ -3136,32 +3136,39 @@ class yprofile(DataPlot):
         cb = utils.colourblind
         lsty = utils.linestyle
         
+        def safe_log10(x, minval=0.0000000001):
+            return np.log10(x.clip(min=minval))
+
         pl.figure()
-        pl.plot(xlong,np.log10(y0long),\
+
+        pl.plot(xlong,safe_log10(y0long),
                 marker='o',
-                color=cb(8),\
-                markevery=lsty(1)[1],\
+                color=cb(8),
+                markevery=6,
                 label='$X_{'+str(fname1)+'}$')
-        pl.plot(xlong,np.log10(y1long),\
-                marker='o',\
-                color=cb(9),\
-                markevery=lsty(2)[1],\
+        
+        pl.plot(xlong,safe_log10(y1long),
+                marker='o',
+                color=cb(9),
+                markevery=6,
                 label='$X_{'+str(fname2)+'}$')
 #        pl.ylabel('$\log\,X$ '+fluid.replace('FV',''))
         pl.ylabel('$\log\,X$ ')
         pl.xlabel('r / Mm')
-        pl.ylim(-8,0.1)
+
         pl.legend(loc='center right').draw_frame(False)
         if grid:
             pl.grid()
+        
         pl.twinx()
-        pl.plot(x/1.e8,np.log10(D),'k-',\
+        
+        pl.plot(x/1.e8,safe_log10(D),'k-',
                 label='$D$') #'$D > 0$')
         if initial_conv_boundaries:
-                pl.axvline(self.radbase,linestyle='dashed',color='k')
-                pl.axvline(self.radtop,linestyle='dashed',color='k')
+            pl.axvline(self.radbase,linestyle='dashed',color='k')
+            pl.axvline(self.radtop,linestyle='dashed',color='k')
         if plot_Dlt0:
-            pl.plot(x/1.e8,np.log10(-D),'k--',\
+            pl.plot(x/1.e8,np.log10(-D),'k--',
                     label='$D < 0$')
         pl.ylabel('$\log(D\,/\,{\\rm cm}^2\,{\\rm s}^{-1})$')
         if approx_D:
@@ -3184,14 +3191,14 @@ class yprofile(DataPlot):
             f = (-2. * np.abs(np.mean(x[indx1:indx2])/1.e8 - r0))\
                 /( np.log( (np.mean(D[indx1:indx2]))/D0) *Hp0)
             lab='f= '+str("%.3f" % f)
-            pl.plot(x[indx1:indx2]/1.e8,m*x[indx1:indx2]\
-                    /1.e8+b,linestyle='dashed',color='r',label=lab)
+            pl.plot(x[indx1:indx2]/1.e8,m*x[indx1:indx2]/1.e8+b,
+                    linestyle='dashed',color='r',label=lab)
         pl.legend(loc='upper right').draw_frame(False)
         if returnY:
             return x/1.e8, D, y0, y1
         else:
             return x/1.e8,D
-
+        
     def Dsolve(self,fname1,fname2,fluid='FV H+He',numtype='ndump',newton=False,niter=3,
              debug=False,grid=False,FVaverage=False,tauconv=None,returnY=False):
         '''

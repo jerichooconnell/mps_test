@@ -63,7 +63,6 @@ from numpy import *
 import numpy as np
 from math import *
 from nugridpy.data_plot import *
-from nugridpy import utils
 import matplotlib.pylab as pyl
 import matplotlib.pyplot as pl
 from matplotlib import rcParams
@@ -76,10 +75,8 @@ import scipy.interpolate as interpolate
 from scipy import optimize
 from scipy import integrate as integrate
 import copy
-import sys
-sys.path.insert(0, '/home/user/')
-import rprofile3 as rprof
-
+from . import rprofile as rprof
+from nugridpy import utils
 cb = utils.colourblind
 
 # from rprofile import rprofile_reader

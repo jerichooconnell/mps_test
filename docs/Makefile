@@ -7,6 +7,7 @@ SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = PPM
 SOURCEDIR     = source
 BUILDDIR      = build
+CONTINUE      =
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -15,6 +16,7 @@ help:
 .PHONY: help Makefile
 
 gh-pages:
+	$(shell bash -c 'read -s -p "THIS PROCESS PUSHES YOUR LOCAL REPO TO THE MASTER ON GITHUB. Would you like to continue? [Y] = continue, [^C] = exit: " pwd; echo $$pwd')
 	make clean
 	make html
 	git add -A && git commit -m "building and pushing docs" && git push origin jerichoo_new_docs

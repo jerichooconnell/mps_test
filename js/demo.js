@@ -14,9 +14,9 @@
     
     optionsBackground = {
         animation: 'points',
-        points: 10,
-        inkAmount: 5,
-        size: 300,
+        points: 1,
+        inkAmount: 1,
+        size: 1,
         frames: 10,
         frameAnimation: true,
         splashing: false,
@@ -34,7 +34,7 @@
     optionsPath = {
         animation: 'path',
         inkAmount: 3,
-        frames: 20,
+        frames: 100,
         frameAnimation: true,
         //color: 'white',
         width: 1000,
@@ -72,12 +72,18 @@
         for (var i = 0; i < paths.length; i++) {
             
             if (i == 1) {
-                bsPath.color = "green"
+                bsPath.draw({path: paths[i], delay: delay,color: '#556B2F',inkAmount: 0.5,});
+            } else {
+                bsPath.draw({path: paths[i], delay: delay});
             }
-            bsPath.draw({path: paths[i], delay: delay});
                 
-            delay += 1;
+            delay += 2;
         }
+        // Draw another straight line
+        bsBackground.draw({
+            delay: 5,
+            end: toggleButton
+        });
     }
 
 
@@ -110,7 +116,7 @@
     button.addEventListener('click', function () {
         if (!animating) {
             toggleButton();
-            bsErase.draw();
+            window.location='index3.html';
         }
     });
 

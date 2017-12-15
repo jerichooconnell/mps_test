@@ -54,8 +54,8 @@ button.hidden {
 }
 
 .wrapper {
-    position: absolute;
+    position: relative;
     display: inline-block;
     top: 80%;
-    left: 24%;
+    text-align: center;
 }

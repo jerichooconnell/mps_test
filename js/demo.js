@@ -77,11 +77,11 @@
                 bsPath.draw({path: paths[i], delay: delay});
             }
                 
-            delay += 2;
+            delay += 0.1;
         }
         // Draw another straight line
         bsBackground.draw({
-            delay: 5,
+            delay: 3,
             end: toggleButton
         });
     }
@@ -112,7 +112,7 @@
 
 
     // Run again button
-
+    
     button.addEventListener('click', function () {
         if (!animating) {
             toggleButton();

@@ -33,12 +33,12 @@
 
     optionsPath = {
         animation: 'path',
-        inkAmount: 3,
+        inkAmount: 2,
         frames: 100,
         frameAnimation: true,
         //color: 'white',
         width: 1000,
-        height: 400
+        height: 450
     };
     bsPath = new Brushstroke(optionsPath);
 
